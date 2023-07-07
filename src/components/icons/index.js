@@ -1,1 +1,1 @@
-export * from './eyes';
+export * from './Eyes';
