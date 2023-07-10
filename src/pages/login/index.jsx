@@ -4,6 +4,7 @@ import FormLogin from './FormLogin';
 import { userActions } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { AUTH } from '../../constants/localStorage';
 
 export default function LoginPage() {
 	const [loginError, setLoginError] = useState(null);
@@ -13,16 +14,14 @@ export default function LoginPage() {
 	const onSubmit = userData => {
 		loginUser(userData)
 			.then(token => {
-				console.log('token');
 				dispatch(
-					userActions.setUserInfo({
+					userActions.setUserSession({
 						isLogged: true,
-						user: {
-							token,
-						},
+						token,
+						userInfo: {}, //FIXME: get the user info
 					}),
 				);
-				localStorage.setItem('user-token', token); // Save the user Token
+				localStorage.setItem(AUTH.USER_TOKEN, { token, userInfo: {} }); //FIXME: get the user info
 				navigation('/dashboard');
 			})
 			.catch(e => {

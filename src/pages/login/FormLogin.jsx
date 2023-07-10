@@ -34,7 +34,6 @@ export default function FormLogin({ onSubmit }) {
 				{errors['email'] && (
 					<span className="text-red-400 font-semibold text-sm block mt-1">
 						Este campo es requerido.
-						{console.log(errors['email']) || ''}
 					</span>
 				)}
 			</div>
