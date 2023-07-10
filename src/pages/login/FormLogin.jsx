@@ -2,16 +2,13 @@ import { useForm } from 'react-hook-form';
 import { PasswordInput } from '../../components/inputs/Input';
 import { Validations } from '../../utils/validations';
 
-export default function FormLogin() {
+export default function FormLogin({ onSubmit }) {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
 
-	const onSubmit = d => {
-		console.log(d);
-	};
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}

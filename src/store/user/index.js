@@ -13,6 +13,10 @@ export const userReducer = createSlice({
 		setLogged(state, action) {
 			state.isLogged = action.payload;
 		},
+		setUserInfo(state, { payload }) {
+			state.isLogged = payload.isLogged;
+			state.userInfo = payload.userInfo;
+		},
 	},
 });
 
