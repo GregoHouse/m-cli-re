@@ -4,18 +4,14 @@ export const userReducer = createSlice({
 	name: 'user',
 	initialState: {
 		isLogged: false,
+		token: null,
 		userInfo: null,
 	},
 	reducers: {
-		setUser(state, action) {
-			state.user = action.payload;
-		},
-		setLogged(state, action) {
-			state.isLogged = action.payload;
-		},
-		setUserInfo(state, { payload }) {
+		setUserSession(state, { payload }) {
 			state.isLogged = payload.isLogged;
 			state.userInfo = payload.userInfo;
+			state.token = payload.token;
 		},
 	},
 });
