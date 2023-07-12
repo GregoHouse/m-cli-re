@@ -13,23 +13,25 @@ export default function LoginPage() {
 	const navigation = useNavigate();
 	const onSubmit = userData => {
 		loginUser(userData)
-			.then(token => {
+			.then(({ token, ...rest }) => {
 				dispatch(
 					userActions.setUserSession({
 						isLogged: true,
 						token,
-						userInfo: {}, //FIXME: get the user info
+						userInfo: rest,
 					}),
 				);
-				localStorage.setItem(AUTH.USER_TOKEN, { token, userInfo: {} }); //FIXME: get the user info
+				localStorage.setItem(
+					AUTH.USER_SESSION,
+					JSON.stringify({ token, userInfo: rest }),
+				);
 				navigation('/dashboard');
 			})
-			.catch(e => {
+			.catch(() => {
 				setLoginError('Incorrect credentials');
 				setTimeout(() => {
 					setLoginError(null);
 				}, 2000);
-				console.error(e);
 			});
 	};
 

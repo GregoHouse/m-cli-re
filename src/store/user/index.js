@@ -5,7 +5,7 @@ export const userReducer = createSlice({
 	initialState: {
 		isLogged: false,
 		token: null,
-		userInfo: null,
+		userInfo: null, // {email,id,name}
 	},
 	reducers: {
 		setUserSession(state, { payload }) {
