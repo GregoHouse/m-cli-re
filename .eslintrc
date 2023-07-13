@@ -23,10 +23,6 @@
   ],
   "rules": {
     "react-refresh/only-export-components": "warn",
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
     "quotes": [
       "warn",
       "single"
