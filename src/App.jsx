@@ -1,40 +1,37 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider, useDispatch } from 'react-redux';
+import { store } from './store/';
+import Router from './router';
+import { useEffect } from 'react';
+import { userActions } from './store/user';
+import { AUTH } from './constants/localStorage';
 
+// Component created to get the provider states
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const sessionSaved = localStorage.getItem(AUTH.USER_SESSION);
+		if (sessionSaved) {
+			const userSession = JSON.parse(sessionSaved);
+			dispatch(
+				userActions.setUserSession({
+					isLogged: true,
+					token: userSession.token,
+					userInfo: userSession.userInfo,
+				}),
+			);
+		}
+	}, [dispatch]);
+
+	return <Router />;
+}
+
+function WrapperApp() {
 	return (
-		<main className="w-full h-full flex flex-col items-center justify-center">
-			<BrowserRouter>
-				<Routes>
-					<Route
-						path="/"
-						element={
-							<h1 className="text-6xl text-white font-semibold tracking-tight">
-								Login
-							</h1>
-						}
-					/>
-
-					<Route
-						path="/dashboard"
-						element={
-							<h1 className="text-6xl text-white font-semibold tracking-tight">
-								dashboard
-							</h1>
-						}
-					/>
-
-					<Route
-						path="*"
-						element={
-							<h1 className="text-6xl text-white font-semibold tracking-tight">
-								404
-							</h1>
-						}
-					/>
-				</Routes>
-			</BrowserRouter>
-		</main>
+		<Provider store={store}>
+			<App />
+		</Provider>
 	);
 }
 
-export default App;
+export default WrapperApp;
